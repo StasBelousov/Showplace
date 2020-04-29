@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Root View Controller-->
+        <!--Showplace-->
         <scene sceneID="V6U-dL-XXV">
             <objects>
                 <tableViewController id="aRY-XF-8zL" customClass="MainViewController" customModule="Showplace" customModuleProvider="target" sceneMemberID="viewController">
@@ -29,7 +29,7 @@
                             <outlet property="delegate" destination="aRY-XF-8zL" id="Vhy-D7-PzG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="rna-OO-xJb"/>
+                    <navigationItem key="navigationItem" title="Showplace" id="rna-OO-xJb"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xnV-Yn-ggW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -42,6 +42,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7ss-Yx-YOu">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="SnellRoundhand-Bold" family="Snell Roundhand" pointSize="30"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="aRY-XF-8zL" kind="relationship" relationship="rootViewController" id="Azm-8u-Hbz"/>
