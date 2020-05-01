@@ -11,7 +11,8 @@ import UIKit
 class MainViewController: UITableViewController {
 
     
-    let showplaceNames = ["Морской порт","Ресторан Дом","Сап Станция","Отель Пуллман"]
+    var showPlaceArray = Place.getPlaces()
+    //let showplaceNames = ["Морской порт","Ресторан Дом","Сап Станция","Отель Пуллман"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,24 +27,32 @@ class MainViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showplaceNames.count
+        return showPlaceArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
+        
+        let place = showPlaceArray[indexPath.row]
 
-        cell.textLabel?.text = showplaceNames[indexPath.row]
-        cell.imageView?.image = UIImage.init(named: showplaceNames[indexPath.row])
-        cell.imageView?.layer.cornerRadius = cell.frame.size.height / 2
-        cell.imageView?.clipsToBounds = true
+        cell.nameLabel.text = place.name
+        cell.locationLabel.text = place.location
+        cell.typeLabel.text = place.type
+        
+        if place.image == nil {
+            cell.imagePlaceLabel.image = UIImage.init(named: place.placeImage!)
+        } else {
+            cell.imagePlaceLabel.image = place.image
+        }
+        
+
+        cell.imagePlaceLabel.layer.cornerRadius = cell.imagePlaceLabel.frame.size.height / 2
+        cell.imagePlaceLabel.clipsToBounds = true
         
         return cell
     }
     // MARK: - Table view delegate
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
-    }
     
     
     
@@ -55,4 +64,13 @@ class MainViewController: UITableViewController {
 //        // Pass the selected object to the new view controller.
 //    }
 
+    
+    @IBAction func unwindSegue (_ segue :UIStoryboardSegue) {
+        
+        guard let newPlaceVC = segue.source as? NewPlaceTableViewController else {return}
+            
+        newPlaceVC.saveNewPlace()
+        showPlaceArray.append(newPlaceVC.newPlace!)
+        tableView.reloadData()
+    }
 }
