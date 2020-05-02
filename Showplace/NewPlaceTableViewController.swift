@@ -10,8 +10,7 @@ import UIKit
 
 class NewPlaceTableViewController: UITableViewController {
     
-    
-    var newPlace: Place?
+    var currentPlace: Place?
     var newPlaceImageIsChanged = false
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -24,8 +23,8 @@ class NewPlaceTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
         saveButton.isEnabled = false
-        
         nameTF.addTarget(self, action: #selector(nameTFCanged), for: .editingChanged)
+        setupEditPlace()
         
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,6 +59,31 @@ class NewPlaceTableViewController: UITableViewController {
             view.endEditing(true)
         }
     }
+    private func setupEditPlace() {
+        if currentPlace != nil {
+            
+            setupNavigationBar()
+            newPlaceImageIsChanged = true
+            
+            guard let data = currentPlace?.imageData, let image = UIImage(data: data) else { return }
+            placeImage.image = image
+            placeImage.contentMode = .scaleAspectFill
+            nameTF.text = currentPlace?.name
+            locationTF.text = currentPlace?.location
+            typeTF.text = currentPlace?.type
+        }
+    }
+    
+    private func setupNavigationBar() {
+        if let backItem = navigationController?.navigationBar.topItem {
+            backItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        }
+        
+        saveButton.isEnabled = true
+        title = currentPlace?.name
+        navigationItem.leftBarButtonItem = nil
+    }
+    
     @IBAction func cancelAction(_ sender: UIBarButtonItem) {
         
         dismiss(animated: true)
@@ -77,13 +101,13 @@ extension NewPlaceTableViewController: UITextFieldDelegate {
     @objc func nameTFCanged() {
         if nameTF.text?.isEmpty == false {
             saveButton.isEnabled = true
-        }else {
+        } else {
             saveButton.isEnabled = false
         }
     }
     
-    func saveNewPlace () {
-        
+    func savePlace () {
+    
         var image: UIImage?
         
         if newPlaceImageIsChanged {
@@ -91,12 +115,23 @@ extension NewPlaceTableViewController: UITextFieldDelegate {
         } else {
             image = UIImage(systemName: "camera.on.rectangle.fill")
         }
+        let imageData = image?.pngData()
         
-        newPlace = Place(name: nameTF.text!,
-                         location: locationTF.text,
-                         type: typeTF.text,
-                         image: image,
-                         placeImage: nil)
+        let newPlace = Place(name: nameTF.text!,
+                             location: locationTF.text,
+                             type: typeTF.text,
+                             imageData: imageData)
+        
+        if currentPlace != nil {
+            try! realm.write {
+                currentPlace?.imageData = newPlace.imageData
+                currentPlace?.name = newPlace.name
+                currentPlace?.location = newPlace.location
+                currentPlace?.type = newPlace.type
+                }
+        } else {
+                StorageManager.saveObject(newPlace)
+        }
     }
 }
 // MARK - Image

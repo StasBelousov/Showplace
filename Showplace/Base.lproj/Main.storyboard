@@ -24,6 +24,7 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bRE-ni-9V4">
                                             <rect key="frame" x="15" y="10" width="65" height="65"/>
+                                            <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="65" id="HGW-Rp-nSx"/>
                                                 <constraint firstAttribute="height" constant="65" id="K2y-8L-IdZ"/>
@@ -67,6 +68,7 @@
                                     <outlet property="locationLabel" destination="Wq3-NA-RRB" id="bCD-lX-4Kr"/>
                                     <outlet property="nameLabel" destination="Fi7-4N-1sZ" id="6AX-ls-YjU"/>
                                     <outlet property="typeLabel" destination="2JV-Mu-YRX" id="pew-Ji-bt1"/>
+                                    <segue destination="l1R-FD-UXt" kind="show" identifier="showDetail" id="n1L-UH-dyl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -75,7 +77,7 @@
                             <outlet property="delegate" destination="aRY-XF-8zL" id="Vhy-D7-PzG"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Showplace" id="rna-OO-xJb">
+                    <navigationItem key="navigationItem" title="Showplace" largeTitleDisplayMode="never" id="rna-OO-xJb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="g65-4W-yoT">
                             <connections>
                                 <segue destination="lFp-zx-mSD" kind="presentation" id="i7L-aN-uGg"/>
@@ -87,7 +89,7 @@
             </objects>
             <point key="canvasLocation" x="637.68115942028987" y="124.55357142857142"/>
         </scene>
-        <!--New Place Table View Controller-->
+        <!--New Place-->
         <scene sceneID="II7-nX-8U5">
             <objects>
                 <tableViewController id="l1R-FD-UXt" customClass="NewPlaceTableViewController" customModule="Showplace" customModuleProvider="target" sceneMemberID="viewController">
@@ -235,7 +237,7 @@
                             <outlet property="delegate" destination="l1R-FD-UXt" id="Y8X-6X-feC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="CvK-Il-gLa">
+                    <navigationItem key="navigationItem" title="New Place" largeTitleDisplayMode="always" id="CvK-Il-gLa">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="pn0-bX-2qY">
                             <connections>
                                 <action selector="cancelAction:" destination="l1R-FD-UXt" id="a2I-jF-eN5"/>
@@ -258,14 +260,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVe-7C-N8i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="xIi-2c-3rn" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2111.594202898551" y="124.55357142857142"/>
+            <point key="canvasLocation" x="1493" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ygt-6O-tdt">
             <objects>
                 <navigationController id="rE3-f9-Ocj" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7ss-Yx-YOu">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="7ss-Yx-YOu">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="SnellRoundhand-Bold" family="Snell Roundhand" pointSize="30"/>
@@ -287,6 +289,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="GS3-5j-VKD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="SnellRoundhand-Bold" family="Snell Roundhand" pointSize="30"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -295,10 +300,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Aq-2v-oZx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1371" y="125"/>
+            <point key="canvasLocation" x="1493" y="-558"/>
         </scene>
     </scenes>
     <resources>
         <image name="Photo" width="195" height="196"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="d2E-hP-anW"/>
+    </inferredMetricsTieBreakers>
 </document>

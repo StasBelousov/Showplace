@@ -7,27 +7,22 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MainViewController: UITableViewController {
-
     
-    var showPlaceArray = Place.getPlaces()
-    //let showplaceNames = ["Морской порт","Ресторан Дом","Сап Станция","Отель Пуллман"]
+    var showPlaceArray: Results<Place>!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        showPlaceArray = realm.objects(Place.self)
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return showPlaceArray.count
+        return showPlaceArray.isEmpty ? 0 : showPlaceArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -38,14 +33,7 @@ class MainViewController: UITableViewController {
         cell.nameLabel.text = place.name
         cell.locationLabel.text = place.location
         cell.typeLabel.text = place.type
-        
-        if place.image == nil {
-            cell.imagePlaceLabel.image = UIImage.init(named: place.placeImage!)
-        } else {
-            cell.imagePlaceLabel.image = place.image
-        }
-        
-
+        cell.imagePlaceLabel.image = UIImage(data: place.imageData!)
         cell.imagePlaceLabel.layer.cornerRadius = cell.imagePlaceLabel.frame.size.height / 2
         cell.imagePlaceLabel.clipsToBounds = true
         
@@ -53,24 +41,29 @@ class MainViewController: UITableViewController {
     }
     // MARK: - Table view delegate
     
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let place = showPlaceArray[indexPath.row]
+            StorageManager.deleteObject(place)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
+   // MARK: - Navigation
     
-    
-    
-//    // MARK: - Navigation
-//
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//    }
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let place = showPlaceArray[indexPath.row]
+            let newPlaceVC = segue.destination as! NewPlaceTableViewController
+            newPlaceVC.currentPlace = place
+        }
+    }
     
     @IBAction func unwindSegue (_ segue :UIStoryboardSegue) {
         
         guard let newPlaceVC = segue.source as? NewPlaceTableViewController else {return}
             
-        newPlaceVC.saveNewPlace()
-        showPlaceArray.append(newPlaceVC.newPlace!)
+        newPlaceVC.savePlace()
         tableView.reloadData()
     }
 }
