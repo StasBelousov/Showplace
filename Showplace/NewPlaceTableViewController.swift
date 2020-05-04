@@ -10,7 +10,7 @@ import UIKit
 
 class NewPlaceTableViewController: UITableViewController {
     
-    var currentPlace: Place?
+    var currentPlace: Place!
     var newPlaceImageIsChanged = false
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -18,10 +18,15 @@ class NewPlaceTableViewController: UITableViewController {
     @IBOutlet weak var nameTF: UITextField!
     @IBOutlet weak var locationTF: UITextField!
     @IBOutlet weak var typeTF: UITextField!
+    @IBOutlet weak var ratingControl: RatingControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
+        tableView.tableFooterView = UIView(frame: CGRect(x: 0,
+                                                         y: 0,
+                                                         width: tableView.frame.size.width,
+                                                         height: 1))
         saveButton.isEnabled = false
         nameTF.addTarget(self, action: #selector(nameTFCanged), for: .editingChanged)
         setupEditPlace()
@@ -71,6 +76,7 @@ class NewPlaceTableViewController: UITableViewController {
             nameTF.text = currentPlace?.name
             locationTF.text = currentPlace?.location
             typeTF.text = currentPlace?.type
+            ratingControl.rating = Int(currentPlace.rating)
         }
     }
     
@@ -78,7 +84,6 @@ class NewPlaceTableViewController: UITableViewController {
         if let backItem = navigationController?.navigationBar.topItem {
             backItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         }
-        
         saveButton.isEnabled = true
         title = currentPlace?.name
         navigationItem.leftBarButtonItem = nil
@@ -120,7 +125,8 @@ extension NewPlaceTableViewController: UITextFieldDelegate {
         let newPlace = Place(name: nameTF.text!,
                              location: locationTF.text,
                              type: typeTF.text,
-                             imageData: imageData)
+                             imageData: imageData,
+                             rating: Double(ratingControl.rating))
         
         if currentPlace != nil {
             try! realm.write {
@@ -128,6 +134,7 @@ extension NewPlaceTableViewController: UITextFieldDelegate {
                 currentPlace?.name = newPlace.name
                 currentPlace?.location = newPlace.location
                 currentPlace?.type = newPlace.type
+                currentPlace?.rating = newPlace.rating
                 }
         } else {
                 StorageManager.saveObject(newPlace)

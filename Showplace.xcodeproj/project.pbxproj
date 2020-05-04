@@ -11,6 +11,7 @@
 		192042C3245A9F380066C119 /* PlaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192042C2245A9F380066C119 /* PlaceModel.swift */; };
 		192042C5245BE6A60066C119 /* NewPlaceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192042C4245BE6A60066C119 /* NewPlaceTableViewController.swift */; };
 		192042C7245C70D50066C119 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 192042C6245C70D50066C119 /* StorageManager.swift */; };
+		19B1171A245F1093009129F6 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B11719245F1093009129F6 /* RatingControl.swift */; };
 		19BC550824593C67008FCF65 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BC550724593C67008FCF65 /* AppDelegate.swift */; };
 		19BC550A24593C67008FCF65 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19BC550924593C67008FCF65 /* SceneDelegate.swift */; };
 		19BC550F24593C67008FCF65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19BC550D24593C67008FCF65 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 		192042C2245A9F380066C119 /* PlaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceModel.swift; sourceTree = "<group>"; };
 		192042C4245BE6A60066C119 /* NewPlaceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPlaceTableViewController.swift; sourceTree = "<group>"; };
 		192042C6245C70D50066C119 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		19B11719245F1093009129F6 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
 		19BC550424593C67008FCF65 /* Showplace.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Showplace.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19BC550724593C67008FCF65 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19BC550924593C67008FCF65 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				192042C2245A9F380066C119 /* PlaceModel.swift */,
 				192042C6245C70D50066C119 /* StorageManager.swift */,
 				192042C0245A0B630066C119 /* CustomTableViewCell.swift */,
+				19B11719245F1093009129F6 /* RatingControl.swift */,
 				192042C4245BE6A60066C119 /* NewPlaceTableViewController.swift */,
 				19BC550924593C67008FCF65 /* SceneDelegate.swift */,
 				19BC550D24593C67008FCF65 /* Main.storyboard */,
@@ -408,6 +411,7 @@
 				192042C3245A9F380066C119 /* PlaceModel.swift in Sources */,
 				192042C1245A0B630066C119 /* CustomTableViewCell.swift in Sources */,
 				19BC550824593C67008FCF65 /* AppDelegate.swift in Sources */,
+				19B1171A245F1093009129F6 /* RatingControl.swift in Sources */,
 				19BC550A24593C67008FCF65 /* SceneDelegate.swift in Sources */,
 				19BC553B24593D44008FCF65 /* MainViewController.swift in Sources */,
 				192042C5245BE6A60066C119 /* NewPlaceTableViewController.swift in Sources */,

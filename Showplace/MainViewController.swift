@@ -41,6 +41,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
 
     }
     // MARK: - Table view data source
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering {
@@ -66,6 +70,11 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.imagePlaceLabel.image = UIImage(data: place.imageData!)
         cell.imagePlaceLabel.layer.cornerRadius = cell.imagePlaceLabel.frame.size.height / 2
         cell.imagePlaceLabel.clipsToBounds = true
+        
+        if place.rating > 0 {
+            cell.ratingLabel.text = "\(Int(place.rating))"
+            cell.ratingImage.image = UIImage(systemName: "star.circle.fill")
+        }
         
         return cell
     }
