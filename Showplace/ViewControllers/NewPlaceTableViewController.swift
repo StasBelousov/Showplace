@@ -64,6 +64,26 @@ class NewPlaceTableViewController: UITableViewController {
             view.endEditing(true)
         }
     }
+    // MARK - Navigation
+       
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+           
+        guard
+            let identifire = segue.identifier,
+            let mapVC = segue.destination as? MapViewController
+            else { return }
+        
+        mapVC.incomeSegueIdentifier = identifire
+        mapVC.mapViewControllerDelegate = self
+        
+        if identifire == "showMap" {
+        mapVC.place.name = nameTF.text!
+        mapVC.place.location = locationTF.text
+        mapVC.place.type = typeTF.text
+        mapVC.place.imageData = placeImage.image?.pngData()
+       }
+    }
+    
     private func setupEditPlace() {
         if currentPlace != nil {
             
@@ -113,13 +133,8 @@ extension NewPlaceTableViewController: UITextFieldDelegate {
     
     func savePlace () {
     
-        var image: UIImage?
+        let image = newPlaceImageIsChanged ? placeImage.image : UIImage(systemName: "camera.on.rectangle.fill")
         
-        if newPlaceImageIsChanged {
-            image = placeImage.image
-        } else {
-            image = UIImage(systemName: "camera.on.rectangle.fill")
-        }
         let imageData = image?.pngData()
         
         let newPlace = Place(name: nameTF.text!,
@@ -162,5 +177,10 @@ extension NewPlaceTableViewController:UIImagePickerControllerDelegate, UINavigat
         newPlaceImageIsChanged = true
         dismiss(animated: true)
     }
+}
+extension NewPlaceTableViewController: MapViewControllerDelegate {
    
+    func getAddress(_ address: String?) {
+        locationTF.text = address
+    }
 }
